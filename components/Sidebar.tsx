@@ -5,6 +5,9 @@ import Link from 'next/link'
 import { GoogleLogin, GoogleLogout } from 'react-google-login'
 import { AiFillHome, AiOutlineMenu } from 'react-icons/ai'
 import { ImCancelCircle } from 'react-icons/im'
+import Discover from './Discover'
+import SuggestedAccounts from './SuggestedAccounts'
+import Footer from './Footer'
 
 const Sidebar = () => {
   const [showSidebar, setShowSidebar] = useState(true);
@@ -37,8 +40,38 @@ const Sidebar = () => {
               </div>
             </Link>
           </div>
+          {/* Need to figure out if the user is logged in or not, and based on that we can give them more options. So if no user profile exists, give them a button */}
+          { !userProfile && (
+            <div className="px-2 py-4 hidden xl:block">
+              <p className='text-gray-400'>
+                Log-in to like and comment on videos
+              </p>
+              <div className='pr-4'>
+                {/* This code can be found on the npm page for react-google-login */}
+                <GoogleLogin 
+                  clientId=''
+                  render={(renderProps) => (
+                    <button 
+                      className='cursor-pointer bg-white text-lg text-[#F51997] border-[1px] border-[#F51997] font-semibold px-6 py-3 rounded-md outline-none w-full mt-3 hover:text-white hover:bg-[#F51997]'
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                    >
+                      Log-in
+                    </button>
+                  )}
+                  onSuccess={() => {}}
+                  onFailure={() => {}}
+                  cookiePolicy='single_host_origin'
+                />
+              </div>
+            </div>
+          )}
+
+          <Discover />
+          <SuggestedAccounts />
+          <Footer />
         </div>
-        // Need to figure out if the user is logged in or not, and based on that we can give them more options
+
       )}
       
     </div>
