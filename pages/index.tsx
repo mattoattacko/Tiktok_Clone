@@ -3,16 +3,28 @@
 //'getServerSideProps' is used when we need authorization.
 //if we dont need to render the data during the request, we should consider fetching data on the client side or with 'getStaticProps'.
 
-import type { NextPage } from 'next'
 import axios from 'axios'
+import NoResults from '../components/NoResults'
+import VideoCard from '../components/VideoCard'
+import { Video } from '../types'
 
 //for TS, whenever we accept some props inside of our NextJS page, we need to create an 'interface'. It's like an object with it's own name. It accepts only one thing here, our videos.
+interface IProps {
+  videos: Video[]
+}
 
-const Home: NextPage = ({ videos }) => {
+const Home = ({ videos }: IProps) => {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div className="flex flex-col gap-10 videos h-full">
+      {/* For each video, we return a VideoCard component. If we dont have a video, we return the NoResults component */}
+      {videos.length ? (
+        videos.map((video: Video) => (
+          <VideoCard post={video} key={video._id}/>
+        ))
+      ) : (
+        <NoResults text={'No Results'} />
+      )}
+    </div>
   )
 }
 
