@@ -8,8 +8,8 @@ interface IProps {
 
 //this is kinda confusing. See JSM video @1:30:00 for more info
 // we could also just do VideoCard = ({ post }: IProps) => {.... as seen in the NoResults component.
-//our VideoCard is of a type NextPage
-//<IProps> is passed to the component
+//our VideoCard is of a type 'NextPage'
+//<IProps> is a prop and is passed to the component
 const VideoCard: NextPage<IProps> = ({ post }) => {
   return (
     <div>VideoCard</div>
