@@ -38,8 +38,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
           <div>
             {/* Username */}
             <Link href='/'>
-              <div>
-                <p>
+              <div className='flex items-center gap-2'>
+                <p className='flex gap-2 items-center md:text-md font-bold text-primary'>
                   {post.postedBy.userName}                  
                   {` `} {/* {``} is a blank space */}
                   <GoVerified className='text-blue-400 text-md' />
