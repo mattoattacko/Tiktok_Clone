@@ -20,9 +20,32 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
         <div className='flex gap-3 p-2 cursor-pointer font-semibold rounded'>
-          <div>
-            <Link>
+          <div className='md:w-16 md:h-16 w-10 h-10'>
+            <Link href='/'>
               {/* we cant put an image as a child component of a Link, so we need to use a React fragment */}
+              <>
+                <Image 
+                  width={62}
+                  height={62}
+                  className='rounded-full'
+                  src={post.postedBy.image}
+                  alt='profile photo'
+                  layout='responsive'
+                />
+              </>
+            </Link>
+          </div>
+          <div>
+            {/* Username */}
+            <Link href='/'>
+              <div>
+                <p>
+                  {post.postedBy.userName}                  
+                  {` `} {/* {``} is a blank space */}
+                  <GoVerified className='text-blue-400 text-md' />
+                  <p>{post.postedBy.userName}</p>
+                </p>
+              </div>
             </Link>
           </div>
         </div>
