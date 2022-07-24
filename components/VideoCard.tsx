@@ -16,6 +16,11 @@ interface IProps {
 //our VideoCard is of a type 'NextPage'
 //<IProps> is a prop and is passed to the component
 const VideoCard: NextPage<IProps> = ({ post }) => {
+
+  const [isHover, setIsHover] = useState(false)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [isMuted, setIsMuted] = useState(false)
+
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
@@ -55,8 +60,8 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
       <div className='lg:ml-20 flex gap-4 relative'>
         <div 
           className='rounded-3xl'
-          onMouseEnter={() => {}}
-          onMouseLeave={() => {}}
+          onMouseEnter={() => setIsHover(true)}
+          onMouseLeave={() => setIsHover(false)}
         >
           <Link href='/'>
             <video 
@@ -64,9 +69,33 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
               src={post.video.asset.url}
               loop
             >
-
             </video>
           </Link>
+
+          {/* Play/Pause button. Shows if hovered. Hides if not. */}
+          {isHover && (
+            <div>
+              {isPlaying ? (
+                <button>
+                  <BsFillPauseFill className='text-black text-2xl lg:text-4xl' />
+                </button>
+              ) : (
+                <button>
+                  <BsFillPlayFill className='text-2xl text-black lg:text-4xl' />
+                </button>
+              )}
+              {isMuted ? (
+                <button>
+                  <HiVolumeOff className='text-black text-2xl lg:text-4xl' />
+                </button>
+              ) : (
+                <button>
+                  <HiVolumeUp className='text-2xl text-black lg:text-4xl' />
+                </button>
+              )}
+            </div>
+          )}
+
         </div>
       </div>
     </div>
