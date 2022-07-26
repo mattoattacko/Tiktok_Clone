@@ -21,6 +21,19 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isMuted, setIsMuted] = useState(false)
 
+  // we need useRef to be able to play the video. For buttons to do something, we need to change the state of the video (play/pause onClick). The videoRef is attached to the html video element, and thats what has the pause/play properties. We need this or TypeScript would complain with our 'videoRef?.current?.pause()' on the 'pause' part. 
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  const onVideoPress = () => {
+    if(isPlaying) {
+      videoRef?.current?.pause()
+      setIsPlaying(false)
+    } else {
+      videoRef?.current?.play()
+      setIsPlaying(true)
+    }
+  }
+
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
@@ -65,31 +78,33 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
         >
           <Link href='/'>
             <video 
+              ref={videoRef}
               className='lg:w-[600px] h-[300px] md:h-[400px] lg:h-[530px] w-[200px] rounded-2xl cursor-pointer bg-gray-100'
               src={post.video.asset.url}
               loop
+              
             >
             </video>
           </Link>
 
           {/* Play/Pause button. Shows if hovered. Hides if not. */}
           {isHover && (
-            <div>
+            <div className='absolute bottom-5 cursor-pointer left-9 md:left-14 lg:left-0 flex gap-10 lg:justify-between w-[100px] md:w-[50px] lg:w-[600px] p-4'>
               {isPlaying ? (
-                <button>
+                <button onClick={onVideoPress}>
                   <BsFillPauseFill className='text-black text-2xl lg:text-4xl' />
                 </button>
               ) : (
-                <button>
+                <button onClick={onVideoPress}>
                   <BsFillPlayFill className='text-2xl text-black lg:text-4xl' />
                 </button>
               )}
               {isMuted ? (
-                <button>
+                <button onClick={() => setIsMuted(false)}>
                   <HiVolumeOff className='text-black text-2xl lg:text-4xl' />
                 </button>
               ) : (
-                <button>
+                <button onClick={() => setIsMuted(true)}>
                   <HiVolumeUp className='text-2xl text-black lg:text-4xl' />
                 </button>
               )}
