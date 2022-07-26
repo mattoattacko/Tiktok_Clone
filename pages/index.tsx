@@ -3,6 +3,7 @@
 //'getServerSideProps' is used when we need authorization.
 //if we dont need to render the data during the request, we should consider fetching data on the client side or with 'getStaticProps'.
 
+import React from 'react'
 import axios from 'axios'
 import NoResults from '../components/NoResults'
 import VideoCard from '../components/VideoCard'

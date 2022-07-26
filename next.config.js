@@ -4,8 +4,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['yt3.ggpht.com'],
-    domains: ['pfpmaker.com'],
+    domains: ['yt3.ggpht.com', 'pfpmaker.com', 'lh3.googleusercontent.com'],
   }
 }
 

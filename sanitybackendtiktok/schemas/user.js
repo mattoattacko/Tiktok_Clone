@@ -12,6 +12,6 @@ export default {
       name: 'image',
       title: 'Image',
       type: 'string', //its 'string' not 'image' because it will be a URL
-    }
-  ]
+    },
+  ],
 }

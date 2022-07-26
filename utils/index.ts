@@ -1,24 +1,25 @@
-import axios from 'axios';
-
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// this is where we fetch our google response
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 export const createOrGetUser = async (response: any, addUser: any) => {
-  var base64Url = response.credential.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-  }).join(''));
-  
-  const { name, picture, sub } = JSON.parse(jsonPayload)
-  
+  // the types in decoded come from console.log(decoded), but I only got an error saying "missing required parameter 'client_id'"
+  const decoded: { name: string, picture: string, sub: string } = jwt_decode(response.credential);
+
+  // the sub value is the user id
+  const { name, picture, sub } = decoded;
+
+  // all Sanity documents need to have _id, _type, userName, and image
   const user = {
     _id: sub,
     _type: 'user',
     userName: name,
     image: picture,
-  };
-  
+  }
+
+  //adds our user to the persistent state
   addUser(user);
 
-  await axios.post(`${BASE_URL}/api/auth`, user);
-};
+  // makes API call
+  await axios.post(`http://localhost:3000/api/auth`, user);
+}
