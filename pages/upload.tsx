@@ -12,9 +12,19 @@ import { topics } from '../utils/constants'
 
 const Upload = () => {
 
+  const router = useRouter() 
   const [isLoading, setIsLoading] = useState(false)
   const [videoAsset, setVideoAsset] = useState<SanityAssetDocument | undefined>() //starts as undefined
   const [wrongFileType, setWrongFileType] = useState(false)
+  const [caption, setCaption] = useState('')
+  const [category, setCategory] = useState(topics[0].name) //default category is the first one in the topics array
+  const [savingPost, setSavingPost] = useState(false) //are we currently saving the post?
+
+  //we need to get the user from zustand
+  //need to set TS to user type of any else TS will complain
+  const { userProfile }: {userProfile: any} = useAuthStore()
+  
+
 
   // we need to work with the 'event' to extract the file they are uploading
   const uploadVideo = async (e: any) => {
@@ -37,12 +47,45 @@ const Upload = () => {
       setIsLoading(false)
       setWrongFileType(true)
     }
+  }
 
+  //this is the function that will be called when the user clicks the 'save post' button
+  //if the caption, videoAsset, and category exist, we will call the API to save the post.
+  //we need to pass the 'document' to Sanity so that it gets saved to the database
+  //we refer to the video asset (_ref) and merge it with the _type: post.
+  const handlePost = async () => {
+    if(caption && videoAsset?._id && category) {
+      setSavingPost(true)
+
+      const document = {
+        _type: 'post',
+        caption,
+        video: {
+          _type: 'file',
+          asset: {
+            _type: 'reference',
+            _ref: videoAsset?._id
+          }
+        },
+        userId: userProfile?._id,
+        postedBy: {
+          _type: 'postedBy',
+          _ref: userProfile?._id
+        },
+        topic: category
+      }
+
+      //we need to send the document over to our backend route
+      await axios.post('http://localhost:3000/api/post', document)
+
+      //we need to reroute to the home page
+      router.push('/')
+    } 
   }
 
   return (
     <div className="flex w-full h-full absolute left-0 top-[60px] mb-10 pt-10 lg:pt-20 bg-[#F8F8F8] justify-center">
-      <div className='bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-center items-center p-14 pt-6 '>
+      <div className='bg-white rounded-lg xl:h-[80vh] flex gap-6 flex-wrap justify-between items-center p-14 pt-6 w-[60%] '>
         <div>
           <div>
             <p className='text-2xl font-bold'>Upload Video</p>
@@ -113,15 +156,15 @@ const Upload = () => {
           </label>
           <input 
             type='text'
-            value=''
-            onChange={() => {}}
+            value={caption}
+            onChange={(e) => setCaption(e.target.value)} //store the value of the key press
             className='rounded outline-none text-md border-2 border-gray-200 p-2'
           />
           <label className='text-md font-medium'>
             Choose a Category
           </label>
           <select
-            onChange={() => {}}
+            onChange={(e) => setCategory(e.target.value)}
             className='rounded outline-none text-md border-2 border-gray-200 lg:p-4 p-2 cursor-pointer capitalize'
           >
             {topics.map((topic) => (
@@ -145,7 +188,7 @@ const Upload = () => {
               Discard
             </button>            
             <button
-              onClick={() => {}}
+              onClick={handlePost}
               type='button'
               className='bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
             >
