@@ -23,6 +23,7 @@ const Detail = ({ postDetails }: IProps ) => {
   const [isPlaying, setIsPlaying] = useState(false)
   const [isVideoMuted, setIsVideoMuted] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null) //we use this to reference the video element.
+  const router = useRouter() //need this to be able to return to the home page
 
   const onVideoClick = () => {
     if(isPlaying) {
@@ -47,7 +48,8 @@ const Detail = ({ postDetails }: IProps ) => {
       <div className='relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-black'>
         {/* can blur the background instead of using just 'bg-black' with '...bg-blurred-img bg-no-repeat bg-cover bg-center'  */}
         <div className='absolute top-6 left-2 lg:left-6 flex gap-6 z-50'>
-          <p className=''>
+          {/* this <p> onClick takes us back to home */}
+          <p className='cursor-pointer' onClick={() => router.back()}> 
             <MdOutlineCancel className='text-white text-[35px]' />
           </p>          
         </div>
