@@ -27,7 +27,7 @@ const Detail = ({ postDetails }: IProps) => {
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null); //we use this to reference the video element.
   const router = useRouter(); //need this to be able to return to the home page
-  const { userProfile } = useAuthStore(); //we need to check if the user is logged in.
+  const { userProfile }: any = useAuthStore(); //we need to check if the user is logged in.
 
   const onVideoClick = () => {
     if (isPlaying) {
@@ -45,6 +45,21 @@ const Detail = ({ postDetails }: IProps) => {
       videoRef.current.muted = isVideoMuted;
     }
   }, [post, isVideoMuted]);
+
+  //if we have a logged in user, we need to display the like button
+  //the second parameter is an object of the things we want to send to the server.
+  const handleLike = async (like: boolean) => {
+    if(userProfile) {
+      const { data } = await axios.put(`${BASE_URL}/api/like`, { 
+        userId: userProfile._id,
+        postId: post._id,
+        like
+      })
+
+      //whenever we set objects, we have to open a new object and spread the previous state of the post. Then we select the property we want to change and set it to the new value.
+      setPost({ ...post, likes: data.likes })
+    }
+  }
 
   if (!post) return null;
 
@@ -141,8 +156,10 @@ const Detail = ({ postDetails }: IProps) => {
           <div className='mt-10 px-10'>
             {/* Can only like if user is logged in */}
             {userProfile && (
-              <LikeButton 
-              
+              <LikeButton
+                likes={post.likes}
+                handleLike={() => handleLike(true)}
+                handleDislike={() => handleLike(false)}
               />
             )}
           </div>
