@@ -34,6 +34,14 @@ const VideoCard: NextPage<IProps> = ({ post }) => {
     }
   }
 
+  // we need to use useEffect to mute the video when the user clicks the mute button.
+  // if our variable is set to true, then the video will be muted.
+  useEffect(() => {
+    if(videoRef?.current) { // if we have a valid video selected
+      videoRef.current.muted = isMuted
+    }
+  }, [isMuted])
+
   return (
     <div className='flex flex-col border-b-2 border-gray-200 pb-6'>
       <div>
