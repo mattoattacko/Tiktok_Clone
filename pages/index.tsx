@@ -8,6 +8,7 @@ import axios from 'axios'
 import NoResults from '../components/NoResults'
 import VideoCard from '../components/VideoCard'
 import { Video } from '../types'
+import { BASE_URL } from '../utils'
 
 //for TS, whenever we accept some props inside of our NextJS page, we need to create an 'interface'. It's like an object with it's own name. It accepts only one thing here, our videos.
 interface IProps {
@@ -30,7 +31,7 @@ const Home = ({ videos }: IProps) => {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get(`http://localhost:3000/api/post`)
+  const { data } = await axios.get(`${BASE_URL}/api/post`)
 
   return {
     // whatever we pass inside the props object will automatically be populated inside of real props in Home 

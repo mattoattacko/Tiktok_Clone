@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router' //will allow us to reroute to the Home page after we upload a new post
 import { FaCloudUploadAlt } from 'react-icons/fa'
 import { MdDelete } from 'react-icons/md'
-import axios from 'axios'
 import { SanityAssetDocument } from '@sanity/client' //we need this to be able to set the type for the asset state (for videoAsset/setVideoAsset).
-
-import useAuthStore from '../store/authStore'
 import { client } from '../utils/client' //sanity client
-
 import { topics } from '../utils/constants'
+import { BASE_URL } from '../utils'
+import useAuthStore from '../store/authStore'
+import axios from 'axios'
 
 const Upload = () => {
 
@@ -76,7 +75,7 @@ const Upload = () => {
       }
 
       //we need to send the document over to our backend route
-      await axios.post('http://localhost:3000/api/post', document)
+      await axios.post(`${BASE_URL}/api/post`, document)
 
       //we need to reroute to the home page
       router.push('/')
