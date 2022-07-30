@@ -9,7 +9,7 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
   if(req.method === 'PUT') {
     // we need everything from the body
-    const { postId, like, userId } = req.body;
+    const { postId, userId, like } = req.body;
    
 
     //we want to change something in the client
@@ -25,14 +25,14 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
         .setIfMissing({ likes: [] })
         .insert('after', 'likes[-1]', [
           {
-            _ref: userId,
-            key: uuid(),
-          }
+            _key: uuid(),
+            _ref: userId,            
+          },
         ])
         .commit()
       : await client
         .patch(postId)
-        .unset([`likes[_ref=='${userId}']`])
+        .unset([`likes[_ref=="${userId}"]`])
         .commit();
 
       res.status(200).json(data);
