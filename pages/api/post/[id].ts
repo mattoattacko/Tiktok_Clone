@@ -1,3 +1,4 @@
+import { uuid } from 'uuidv4';
 //we make a call to Sanity from our api request
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { client } from '../../../utils/client'
@@ -18,5 +19,26 @@ export default async function handler( req: NextApiRequest, res: NextApiResponse
 
     //return the data starting with the first element in the array
     res.status(200).json(data[0])
+    
+
+  // ~~~ adding a comment ~~~ // 
+  } else if (req.method === 'PUT') {
+    //get comment and user id from body
+    const { comment, userId } = req.body
+    const { id }: any = req.query //the url once we leave a comment
+
+    const data = await client 
+      .patch(id)
+      .setIfMissing({ comments: [] })
+      .insert('after', 'comments[-1]', [
+        {
+          comment: comment,
+          _key: uuid(),
+          postedBy: { _type: 'postedBy', _ref: userId },            
+        },
+      ])
+      .commit()
+
+    res.status(200).json(data)
   }
 }

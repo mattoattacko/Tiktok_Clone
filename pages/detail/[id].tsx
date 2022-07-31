@@ -27,7 +27,9 @@ const Detail = ({ postDetails }: IProps) => {
   const [isVideoMuted, setIsVideoMuted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null); //we use this to reference the video element.
   const router = useRouter(); //need this to be able to return to the home page
-  const { userProfile }: any = useAuthStore(); //we need to check if the user is logged in.
+  const { userProfile }: any = useAuthStore(); //we need to check if the  user is logged in.
+  const [comment, setComment] = useState('')
+  const [isPostingComment, setIsPostingComment] = useState(false)
 
   const onVideoClick = () => {
     if (isPlaying) {
@@ -58,6 +60,25 @@ const Detail = ({ postDetails }: IProps) => {
 
       //whenever we set objects, we have to open a new object and spread the previous state of the post. Then we select the property we want to change and set it to the new value.
       setPost({ ...post, likes: data.likes })
+    }
+  }
+
+  // ~~~ Comments ~~~ //
+  const addComment = async (e) => {
+    e.preventDefault()
+
+    if(userProfile && comment) {
+      setIsPostingComment(true)
+      
+      //We want to get the response. We use a PUT request because we are adding something to do the document. We need to know on which video are we posting the comment. Second parameter contains the object with the userId and the actual comment itself.
+      const { data } = await axios.put(`${BASE_URL}/api/post/${post._id}`, {
+        userId: userProfile._id,
+        comment //the comment is coming from the input, so we need to pass those states down into our <Comments /> component
+      })
+
+      setPost({ ...post, comments: data.comments })
+      setComment('') //clear input field
+      setIsPostingComment(false) //reset the state since we are not posting anymore
     }
   }
 
@@ -164,7 +185,11 @@ const Detail = ({ postDetails }: IProps) => {
             )}
           </div>
           <Comments 
-          
+            comment={comment}
+            setComment={setComment}
+            addComment={addComment}
+            isPostingComment={isPostingComment}
+            comments={post.comments}
           />
         </div>
       </div>
