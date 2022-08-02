@@ -97,7 +97,7 @@ export const singleUserQuery = (userId: string | string[]) => {
 };
 
 export const allUsersQuery = () => {
-  const query = `*[_type == "user"]`;
+  const query = `*[_type == "user"]`; //get all documents with the type = to user
 
   return query;
 };

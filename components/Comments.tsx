@@ -30,7 +30,7 @@ const Comments = ({ comment, setComment, addComment, comments, isPostingComment 
   return (
     <div className='border-t-2 border-gray-200 pt-4 px-10 bg-[#F8F8F8] border-b-2 lg:pb-0 pb-[100px]'>
       <div className='overflow-scroll lg:h-[475px]'>
-        {/* loop over the comments data. If the comments exist, return the video. Else return NoResults */}
+        {/* loop over the comments data. If the comments exist, return them. Else return NoResults */}
         {comments?.length ? (
           <div>videos</div>
         ) : (
