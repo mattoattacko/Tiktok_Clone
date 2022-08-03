@@ -19,10 +19,16 @@ const Search = ({ videos }: { videos: Video[] }) => {
   const [isAccounts, setIsAccounts] = useState(false);
 
   const router = useRouter(); //we need this to show the search term if <NoResults /> is rendered
-  const { searchTerm } = router.query;
+  const { searchTerm }: any = router.query;
+
+  //we need all users from our store to use in our account search
+  const { allUsers } = useAuthStore();
 
   const accounts = isAccounts ? "border-b-2 border-black" : "text-gray-400";
   const isVideos = !isAccounts ? "border-b-2 border-black" : "text-gray-400";
+  const searchedAccounts = allUsers.filter((user: IUser) =>
+    user.userName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="w-full">
@@ -43,21 +49,52 @@ const Search = ({ videos }: { videos: Video[] }) => {
 
       {/* Accounts or Videos tab underline */}
       {isAccounts ? (
-        <div>
-          Accounts
+        <div className="md:mt-16">
+          {searchedAccounts.length > 0 ? (
+            searchedAccounts.map((user: IUser, idx: number) => (
+              <Link href={`/profile/${user._id}`} key={idx}>
+                <div className="flex gap-3 p-2 cursor-pointer font-semibold rounded border-b-2 border-gray-200"> {/* this is the gray dividing lines b/t account names */}
+                  <div>
+                    <Image
+                      src={user.image}
+                      alt="user profile"
+                      width={50}
+                      height={50}
+                      className="rounded-full"
+                    />
+                  </div>
+
+                  {/* User Name */}
+                  <div className="hidden xl:block">
+                    {/* 'xl:block' will make sure the user images show on smaller screens */}
+                    <p className="flex gap-1 items-center text-md font-bold text-primary lowercase">
+                      {user.userName.replaceAll(" ", "")}
+                      {/* reaplaceAll(' ', '') will replace spaces with no space */}
+                      <GoVerified className="text-blue-400" />
+                    </p>
+                    <p className="capitalize text-gray-400 text-xs">
+                      {user.userName}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))
+          ) : (
+            <NoResults text={`No results for ${searchTerm}`} />
+          )}
         </div>
-      ) : 
-        <div className='md:mt-16 flex flex-wrap gap-6 md:justify-start'>
+      ) : (
+        <div className="md:mt-16 flex flex-wrap gap-6 md:justify-start">
           {/* loop over videos if they exist */}
           {videos.length ? (
             videos.map((video: Video, idx) => (
               <VideoCard post={video} key={idx} />
             ))
-          ) : 
+          ) : (
             <NoResults text={`No results for ${searchTerm}`} />
-          }
+          )}
         </div>
-      }
+      )}
     </div>
   );
 };
@@ -75,4 +112,4 @@ export const getServerSideProps = async ({
   };
 };
 
-export default Search
+export default Search;

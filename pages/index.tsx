@@ -30,13 +30,24 @@ const Home = ({ videos }: IProps) => {
   )
 }
 
-export const getServerSideProps = async () => {
-  const { data } = await axios.get(`${BASE_URL}/api/post`)
+//using getServerSideProps, we gain access to the users search parameters
+export const getServerSideProps = async ({
+  query: { topic }
+}: {
+  query: { topic: string }
+}) => {
+  let response = null;
+
+  if(topic) {
+    response = await axios.get(`${BASE_URL}/api/discover/${topic}`)
+  } else {
+    response = await axios.get(`${BASE_URL}/api/post`)
+  }
 
   return {
     // whatever we pass inside the props object will automatically be populated inside of real props in Home 
     props: {
-      videos: data
+      videos: response.data
     }
   }
 }
