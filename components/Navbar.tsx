@@ -93,14 +93,15 @@ const Navbar = () => {
             </Link>
             )}
             <button 
-              className='px-2'
+              data-bs-target="tooltip"
+              className='px-2 hover:opacity-50'
               type='button'
               onClick={() => {
                 googleLogout();
                 removeUser();          
               }}
             >
-              <AiOutlineLogout color='red' fontSize={35} />
+              <AiOutlineLogout color='red' fontSize={35} title='Logout'/>
             </button>
           </div>
         ) : (

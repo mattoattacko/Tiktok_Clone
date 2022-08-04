@@ -88,10 +88,10 @@ const Detail = ({ postDetails }: IProps) => {
     <div className="flex w-full absolute left-0 top-0 bg-white flex-wrap lg:flex-nowrap">
       <div className="relative flex-2 w-[1000px] lg:w-9/12 flex justify-center items-center bg-black">
         {/* can blur the background instead of using just 'bg-black' with '...bg-blurred-img bg-no-repeat bg-cover bg-center'  */}
-        <div className="absolute top-6 left-2 lg:left-6 flex gap-6 z-50">
+        <div className="absolute top-2 left-2 lg:left-6 flex gap-6 z-50">
           {/* this <p> onClick takes us back to home */}
           <p className="cursor-pointer" onClick={() => router.back()}>
-            <MdOutlineCancel className="text-white text-[35px]" />
+            <MdOutlineCancel className="text-white text-[35px] hover:text-[#807d7d]" />
           </p>
         </div>
 

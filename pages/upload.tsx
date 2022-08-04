@@ -88,7 +88,7 @@ const Upload = () => {
         <div>
           <div>
             <p className='text-2xl font-bold'>Upload Video</p>
-            <p className='text-md text-gray-400 mt-1'>Post a video to your account</p>
+            <p className='text-md text-gray-400 mt-1'>Post a video!</p>
           </div>
 
           {/* Upload Videos */}
@@ -142,7 +142,7 @@ const Upload = () => {
             {/* check if wrong file type is uploaded */}
             {wrongFileType && (
               <p className='text-center text-xl text-red-400 font-semibold mt-4 w-[250px]'>
-                incorrect file type :(
+                Incorrect File Type
               </p>
             )}
           </div>
@@ -191,7 +191,7 @@ const Upload = () => {
               type='button'
               className='bg-[#F51997] text-white text-md font-medium p-2 rounded w-28 lg:w-44 outline-none'
             >
-              Post
+              {savingPost ? 'Posting...' : 'Post'}
             </button>
           </div>
         </div>

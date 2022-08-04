@@ -1,6 +1,6 @@
 import { BsCode } from 'react-icons/bs';
 import { GiMusicalNotes } from 'react-icons/gi';
-import { FaPaw, FaMedal, FaCar, FaHamburger } from 'react-icons/fa';
+import { FaPaw, FaLaptopCode, FaCar, FaHamburger } from 'react-icons/fa';
 import  { RiEmotionLaughLine } from 'react-icons/ri';
 import { MdSportsEsports, MdSportsMotorsports } from 'react-icons/md';
 
@@ -10,7 +10,7 @@ export const topics = [
     icon: <FaCar />,
   },
   {
-    name: 'sports',
+    name: 'racing',
     icon: <MdSportsMotorsports />,
   },
   {
@@ -19,7 +19,7 @@ export const topics = [
   },
   {
     name: 'technology',
-    icon: <BsCode />,
+    icon: <FaLaptopCode />,
   },
   {
     name: 'comedy',
