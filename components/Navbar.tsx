@@ -78,22 +78,21 @@ const Navbar = () => {
             </Link>
 
             {/* Check if user image exists */}
-            {userProfile.image && (
-              <Link href='/'>
-              {/* we cant put an image as a child component of a Link, so we need to use a React fragment */}
-                <>
+            {userProfile?.image && (
+              <Link href='/'>             
+                <>  {/* we cant put an image as a child component of a Link, so we need to use a React fragment */}
                   <Image 
                     width={40}
                     height={40}
                     className='rounded-full cursor-pointer'
                     src={userProfile?.image}
-                    alt='profile photo'        
+                    alt='profile photo'    
+                    title={userProfile?.userName}    
                   />
                 </>
             </Link>
             )}
-            <button 
-              data-bs-target="tooltip"
+            <button               
               className='px-2 hover:opacity-50'
               type='button'
               onClick={() => {
@@ -101,7 +100,7 @@ const Navbar = () => {
                 removeUser();          
               }}
             >
-              <AiOutlineLogout color='red' fontSize={35} title='Logout'/>
+              <AiOutlineLogout color='red' fontSize={33} title='Logout' />
             </button>
           </div>
         ) : (

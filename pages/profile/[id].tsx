@@ -43,8 +43,8 @@ const Profile = ({ data }: IProps) => {
 
   return (
     <div className="w-full">
-      <div className="flex gap-6 md:gap-10 mb-4 bg-white w-full">
-        <div className="w-16 h-16 md:w-31 md:h-32">
+      <div className="flex gap-6 md:gap-10  bg-white w-full"> 
+        <div className="w-16 h-16 md:w-20 md:h-20">
           <Image
             src={user.image}
             alt="user profile"
@@ -56,7 +56,7 @@ const Profile = ({ data }: IProps) => {
         </div>
 
         {/* User Name */}
-        <div className="flex flex-col justify-center">
+        <div className="flex flex-col">
           {/* 'xl:block' will make sure the user images show on smaller screens */}
           <p className="md:text-2xl tracking-wider flex gap-1 items-center justify-center text-md font-bold text-primary lowercase">
             {user.userName.replaceAll(" ", "")}{" "}
@@ -69,7 +69,7 @@ const Profile = ({ data }: IProps) => {
 
       {/* Videos & Liked Tabs */}
       {/* Underlines which tab we are currently viewing */}
-      <div className='flex gap-10 mb-10 mt-10 border-b-2 border-gray-200 bg-white w-full'>
+      <div className='flex gap-10 mb-10 mt-1 border-b-2 border-gray-200 bg-white w-full'>
         <p className={`text-xl font-semibold cursor-pointer mt-2 ${videos}`} onClick={()=> setShowUserVideos(true)}>
           Videos
         </p>        
