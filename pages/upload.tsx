@@ -28,7 +28,7 @@ const Upload = () => {
   // we need to work with the 'event' to extract the file they are uploading
   const uploadVideo = async (e: any) => {
     const selectedFile = e.target.files[0] //this is where the video is stored
-    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg'] //this is where we specify the file type
+    const fileTypes = ['video/mp4', 'video/webm', 'video/ogg', 'video/mpeg'] //this is where we specify the file type
 
     //check if file type matches. First we check if the user has uploaded the video in the correct file type. If not, we display an error message. If they have, we upload the video to the Sanity API
     //the third thing we pass in is an options object which allows us to specify the filename of the video

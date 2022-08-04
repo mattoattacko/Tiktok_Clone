@@ -1,42 +1,44 @@
-import { BsCode, BsEmojiSunglasses } from 'react-icons/bs';
-import { GiCakeSlice, GiGalaxy, GiLipstick } from 'react-icons/gi';
-import { FaPaw, FaMedal, FaGamepad } from 'react-icons/fa';
+import { BsCode } from 'react-icons/bs';
+import { GiMusicalNotes } from 'react-icons/gi';
+import { FaPaw, FaMedal, FaCar, FaHamburger } from 'react-icons/fa';
+import  { RiEmotionLaughLine } from 'react-icons/ri';
+import { MdSportsEsports, MdSportsMotorsports } from 'react-icons/md';
 
 export const topics = [
   {
-    name: 'coding',
-    icon: <BsCode />,
+    name: 'cars',
+    icon: <FaCar />,
   },
   {
-    name: 'comedy',
-    icon: <BsEmojiSunglasses />,
-  },
-  {
-    name: 'gaming',
-    icon: <FaGamepad />,
-  },
-  {
-    name: 'food',
-    icon: <GiCakeSlice />,
-  },
-  {
-    name: 'dance',
-    icon: <GiGalaxy />,
-  },
-  {
-    name: 'beauty',
-    icon: <GiLipstick />,
+    name: 'sports',
+    icon: <MdSportsMotorsports />,
   },
   {
     name: 'animals',
     icon: <FaPaw />,
   },
   {
-    name: 'sports',
-    icon: <FaMedal />,
+    name: 'technology',
+    icon: <BsCode />,
+  },
+  {
+    name: 'comedy',
+    icon: <RiEmotionLaughLine />,
+  },
+  {
+    name: 'gaming',
+    icon: <MdSportsEsports />,
+  },
+  {
+    name: 'food',
+    icon: <FaHamburger />,
+  },
+  {
+    name: 'music',
+    icon: <GiMusicalNotes />,
   },
 ];
 
-export const footerList1 = ['About', 'Newsroom', 'Store', 'Contact', 'Carrers', 'ByteDance', 'Creator Directory']
-export const footerList2 = [ 'TikTik for Good','Advertise','Developers','Transparency','TikTik Rewards' ]
-export const footerList3 = [ 'Help', 'Safety', 'Terms', 'Privacy', 'Creator Portal', 'Community Guidelines' ]
+export const footerList1 = [ 'About', 'Newsroom', 'Store', 'Contact', 'Careers' ]
+export const footerList2 = [ 'Advertise', 'Developers', 'Terms', 'Privacy' ]
+export const footerList3 = [ 'Help', 'Safety', 'Terms', 'Creator Portal', 'Community Guidelines' ]
