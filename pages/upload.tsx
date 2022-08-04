@@ -92,7 +92,7 @@ const Upload = () => {
           </div>
 
           {/* Upload Videos */}
-          <div className='border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[460px] p-10 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
+          <div className='border-dashed rounded-xl border-4 border-gray-200 flex flex-col justify-center items-center outline-none mt-10 w-[260px] h-[500px] p-5 cursor-pointer hover:border-red-300 hover:bg-gray-100'>
             {isLoading ? (
               <p>Uploading...</p>
             ) : (
@@ -102,7 +102,7 @@ const Upload = () => {
                   <div>
                     <video 
                       src={videoAsset.url}
-                      className='rounded-xl h-[450px] mt-16 bg-black'
+                      className='rounded-xl h-[450px] mt-3 mb-2 bg-black'
                       controls
                       loop                      
                     >

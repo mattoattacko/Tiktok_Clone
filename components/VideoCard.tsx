@@ -3,7 +3,8 @@ import { Video } from '../types'
 import { NextPage } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { BsFillPlayFill, BsFillPauseFill, BsPlay } from 'react-icons/bs'
+
+import { BsFillPlayFill, BsFillPauseFill } from 'react-icons/bs'
 import { HiVolumeUp, HiVolumeOff } from 'react-icons/hi'
 import { GoVerified } from 'react-icons/go'
 
