@@ -1,5 +1,7 @@
 # TikTok Clone
 
+<img src='https://i.imgur.com/M6ouBfX.png' />
+
 This TikTok clone application was built in collaboration with JSM
 
 ## Contributing
