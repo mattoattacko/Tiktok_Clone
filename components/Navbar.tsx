@@ -10,7 +10,8 @@ import { createOrGetUser } from '../utils'
 
 import useAuthStore from '../store/authStore'
 
-import Logo from '../utils/tiktik-logo.png'
+// import Logo from '../utils/tiktik-logo.png'
+import Logo2 from '../utils/petroltok2.png'
 
 
 const Navbar = () => {
@@ -35,7 +36,7 @@ const Navbar = () => {
         <div className="w-[100px] md:w-[130px]">
           <Image 
             className="cursor-pointer"
-            src={Logo} 
+            src={Logo2} 
             alt='TikTik' 
             layout='responsive' 
           />
